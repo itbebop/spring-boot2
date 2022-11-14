@@ -1,0 +1,6 @@
+1) Project 생성  - File -> New Project...  - 프로젝트 명칭, 소스디렉토리, SDK 버전, 개발프레임워크등을 선택한다  - .idea 와 [프로젝트명].iml 내부 환경파일이 생성됨 
+2) Package 생성  - Alt + Insert 키를 눌러서 package를 생성한다   - com.dowon.smart.dashboard 식의 full package를 넣는다
+3) Class 생성  - Alt + Insert 키를 눌러서 class를  생성한다  - 상속받을 class wizard는 안나타남 : Ctrl+Shift+O 키를 누르면 상속받은 클래스의 메소드가 나옴 선택하여 Overriding 또는 implement 하면 됨 
+4) 빠르게 코딩하기   - public static void main... 은 psvm TAB 키를 넣으면 자동 생성됨   - System.out.println 은 sout TAG 키를 넣으면 자동 생성됨  - Alt + Backspace == ctrl + z in eclipse 이전 코딩으로 돌아가기 
+5) Test Class 및 Method 만들기  - Ctrl + Shift + T  - 위저드가 뜨면 JUnit4 선택해서 만들기 
+출처: https://mobicon.tistory.com/152 [Mobile Convergence:티스토리]

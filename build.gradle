@@ -1,5 +1,5 @@
 buildscript {
-    ext{
+    ext{ // build.gradle에서 사용하는 전역변수를 설정하겠다는 의미
         springBootVersion = '2.1.7.RELEASE'
     }
     repositories{
@@ -14,6 +14,11 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+/*
+    - 앞서 선언한 플러그인 의존성들을 적용할 것인지 결정
+    - io.spring.dependency-management은 스프링 부트의 의존성들을 관리해 주는 플러그인이라 필수
+	- 자바와 스프링 부트를 사용하기 위해서는 위 4개 필수이므로 항상 추가하면 됨
+*/
 
 /*
 plugins {
@@ -26,13 +31,34 @@ version '1.0-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
+    /*
+    	- 각종 의존성(라이브러리)들을 어떤 원격 저장소에서 받을지 결정함
+		- mavenCentral을 많이 사용하지만, 최근에는 라이브러리 업로드 난이도 때문에 jcenter도 많이 사용한다.
+     */
     mavenCentral()
     jcenter()
 }
 
 dependencies {
+    /*
+    	- 프로젝트 개발에 필요한 의존성들을 선언하는 곳
+		- 특정 버전을 명시하면 안되고 ${springBootVersion}으로 해야 이 버전을 따라감
+     */
+
     implementation('org.springframework.boot:spring-boot-starter-web')
-    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    implementation('org.springframework.boot:spring-boot-starter-mustache')
+
+    //lombok
+    implementation('org.projectlombok:lombok')
+    implementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+    implementation 'org.springframework.boot:spring-boot-starter-test'
+    annotationProcessor('org.projectlombok:lombok')
+    testImplementation('org.projectlombok:lombok')
+    testAnnotationProcessor('org.projectlombok:lombok')
+    /*
+    compile('org.springframework.boot:spring-boot-starter-web')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+     */
 }
 
 test {
