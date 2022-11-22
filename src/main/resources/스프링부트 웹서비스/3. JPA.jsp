@@ -1,0 +1,73 @@
+ㅇ 기존 관계형 데이터베이스 (Relational DB) 사용함으로 발생하는 문제
+	- 애플리케이션 코드가 아닌 SQL이 중심이 됨
+	- 패러다임 불일치 문제
+	  즉, 관계형 데이터베이스는 어떻게 데이터를 저장할지에 초점이 맞춰진 기술임에 반해,
+	  APP 소스는 객체지향 프로그래밍으로 기능과 속성을 한 곳에서 관리함
+	  
+ㅇ JPA란 
+	- 자바 표준 ORM(Object Relational Mapping)
+	- MyBatis, iBatis는 ORM이 아님
+	- ORM은 객체를 매핑하는 것이고, SQL Mapper는 쿼리를 매핑함
+	- JPA는 인터페이스로서 자바 표준명세서이므로 JPA를 사용하기 위해서는 구현체가 필요함
+	 ex) Hibernate, Eclipse Link 등
+	- 구현체들을 좀 더 쉽게 사용하고자 추상화시킨 Spring Data JPA라는 모듈을 이용하여 JPA를 다룸
+	 ex) JPA <- Hibernate <- Spring Data JPA (한 단계 더 감싸놓음)
+	 
+ㅇ Spring Data JPA
+	- 등장한 이유  
+	 1) 구현체 교체의 용이성
+	   - Hibernate 외의 다른 구현체로 쉽게 교체 가능
+	 2) 저장소 교체의 용이성
+	   - 관계형 데이터베이스 외에 다른 저장소로 쉽게 교체 가능
+	    ex) 관계형 데이터베이스 -> MongoDB로 교체가 필요하면
+		Spring Data JPA에서 Spring Data MongoDB로 의존성만 교체하면 됨
+	   - 이건 Spring Data의 하위 프로젝트들이 기본적인 CRUD의 인터페이스가 같기 때문에 가능함
+	   - 하위 프로젝트란 Spring Data JPA, Spring Data Redis, Spring Data MongoDB
+	   
+ㅇ 프로젝트에 Spring Data JPA 적용하기
+1. 의존성 추가
+2. SQL LOG 
+3. API 생성
+	1) Request 데이터를 받을 Dto
+	2) API 요청을 받을 Controller
+	3) 트랜잭션, 도메인 기능 간의 순서를 보장하는 Service
+	
+cf) Spring 웹 계층
+	a. Web Layer
+	  - 컨트롤러(@Controller)와 JSP/Freemarker 등의 뷰 템플릿 영역
+	  - 이외에도 필터(@Filter), 인터셉터, 컨트롤러 어드바이스(@Controller) 등 외부요청과 응답에 대한 전반적인 영역
+	b. Service Layer 
+	  - @Service 를 사용하는 서비스 영역
+	  - 일반적으로 Controller 와 Dao 의 중간 영역에서 사용됨
+	  - @Transactional 이 사용되어야 하는 영역
+	c. Repository Layer
+	  - Database와 같이 데이터 저장소에 접근하는 영역
+	  - Dao(Data Access Object) 와 유사하게 보면 됨
+	d. Dtos
+	  - Dto(Data Transfer Object)는 계층 간에 데이터 교환을 위한 객체를 의미하며 Dtos는 이들의 영역임
+	  - 예를 들어 뷰 템플릿 엔진에서 사용될 객체나 Repository Layer 에서 결과로 넘겨준 객체 등
+	e. Domain Model
+	  - 도메인이라 불리는 개발 대상을 모든 사람이 동일한 과정에서 이해할 수 있고 공유할 수 있도록 단순화시킨 것
+	  - 예를 들어 택시 앱이라고 하면 배차, 탑승, 요금 등이 모두 도메인이 될 수 있음
+	  - @Entity 가 사용된 영역 역시 도메인 모델임
+	  - 다만, 무조건 데이터베이스의 테이블과 관계가 있어야만 하는 것은 아니고 VO처럼 값 객체들도 이 영역에 해당할 수 있음
+	  - 다섯 개의 Layer 중 비지니스 처리를 Domain에서 처리함
+	  
+ㅇ스프링에서 Bean을 주입받는 방식
+1. @Autowired
+2. setter
+3. 생성자
+
+- 이 중 가장 권장하는 방식은 생성자로 주입받는 방식(@Autowired는 권장하지 않음)
+ > 즉 생성자로 Bean 객체를 받도록 하면 @Autowired 와 동일한 효과를 볼 수 있다.
+
+- 생성자는 @RequiredArgsConstructor 에서 해결함. final 이 선언된 모든 필드를 인자값으로 하는 생성자를 
+롬복의 @RequiredArgsConstructor 가 대신 생성한 것.
+ > 생성자를 직접 안 쓰고 롬복 어노테이션을 사용한 이유는 해당 클래스의 의존성 관게가 변경될 때마다 생성자 코드를 계속 수정하는 번거로움을 해결하기 위함
+ 
+ㅇDto 클래스 생성
+- Entity 클래스와 거의 유사한 형태임에도 Dto 클래스를 따로 생성함
+  > 그러나 Entity 클래스를 Request/ Response 클래스로 사용해서는 안됨
+  > Entity 클래스는 데이터베이스와 맞닿은 핵심 클래스로서 이를 기준으로 테이블 생성, 스키마 변경됨
+  > 따라서 화면 변경될 때 Entity 클래스가 변경되면 안되기 때문에 Request 와 Response 용 Dto를 View 를 위한 클래스로 만든 것 
+  ** 반드시 View Layer와 DB Layer의 역할 분리, Entity 클래스와 Controller에서 쓸 Dto를 분리할 것
