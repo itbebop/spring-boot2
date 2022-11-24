@@ -52,3 +52,17 @@
 	 .andExpect(jsonPath("$.name").value(name))
 	 .andExpect(jsonPath("$.amount").value(amount))
 	  > 여기서 "$.name" 앞에는 expression이 들어가도록 ctrl+enter로 import하여 MockMvc 선택
+
+ㅁ Whitelabel Error Page
+This application has no explicit mapping for /error, so you are seeing this as a fallback.
+
+Thu Nov 24 01:09:33 KST 2022
+There was an unexpected error (type=Internal Server Error, status=500).
+No converter found for return value of type: class com.itbebop.documentation.springboot.web.dto.PostsResponseDto
+
+ - 원인 :
+PostResponseDto에 @Getter 어노테이션이 없어서 발생함
+ - @Getter 어노테이션 넣고 나서는
+There was an unexpected error (type=Internal Server Error, status=500).
+?? ???? ????. id=1
+라고 에러남

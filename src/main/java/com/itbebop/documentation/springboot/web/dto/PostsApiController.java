@@ -12,6 +12,7 @@ public class PostsApiController {
 
     // insert 부분
     @PostMapping("/api/v1/posts")
+    //@RequestMapping(value="/api/v1/posts") //도 가능
     public Long save(@RequestBody PostsSaveRequestDto requestDto){
         return postsService.save(requestDto);
     }

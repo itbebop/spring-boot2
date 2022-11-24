@@ -1,7 +1,9 @@
 package com.itbebop.documentation.springboot.web.dto;
 
 import com.itbebop.documentation.springboot.domain.posts.Posts;
+import lombok.Getter;
 
+@Getter
 public class PostsResponseDto {
 
     private Long id;
