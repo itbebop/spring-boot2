@@ -1,7 +1,9 @@
 package com.itbebop.documentation.springboot.web.dto;
 
+import com.itbebop.documentation.springboot.domain.posts.Posts;
 import com.itbebop.documentation.springboot.service.posts.PostsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -23,6 +25,12 @@ public class PostsApiController {
         return postsService.update(id, requestDto);
     }
 
+    // delete 부분
+    @DeleteMapping("/api/v1/posts/{id}")
+    public Long delete(@PathVariable Long id){
+        postsService.delete(id);
+        return id;
+    }
     @GetMapping("/api/v1/posts/{id}")
     public PostsResponseDto findById (@PathVariable Long id){
         return postsService.findById(id);

@@ -37,7 +37,7 @@
 ㅇ 기본 페이지 만들기
  - indexController 만들기
 
-ㅇ 등록 화면 만들기
+ㅁ 등록 화면
  - 부트스트랩 이용. 레이아웃 방식으로 추가
     > 레이아웃 방식이란 공통 영역을 별도의 파일로 분리하여 필요한 곳에서 가져다 쓰는 방식
  - 페이지 로딩속도를 높이기 위해 css는 header에, js는 footer에 둠 (head가 다 실행되고 나서 body가 실행됨)
@@ -53,6 +53,7 @@
  - index.js 만들고 footer에서 사용
  - default 위치는 resource/static.js.app (img, css)
 
+ㅁ 전체 조회 화면
 ㅇ index.mustache 수정
  - mustache 문법
   > {{#posts}} post라는 List 순회(for문)
@@ -67,3 +68,5 @@
   > .map(PostsListResponseDto::new)
     .map(posts -> new PostsListResponseDto(posts)) 와 동일
   > postsRepository 결과로 넘어온 Posts의 Stream을 map을 통해 PostsListResponseDto 변화 -> List로 반환하는 메소드
+
+ㅁ 게시글 수정, 삭제 화면
