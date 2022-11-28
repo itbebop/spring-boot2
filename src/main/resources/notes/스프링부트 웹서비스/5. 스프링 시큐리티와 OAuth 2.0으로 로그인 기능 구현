@@ -24,10 +24,27 @@
 ㅁ https://console.cloud.google.com/ 에서 구글 서비스 등록
  - 새프로젝트 > API 및 서비스 > 사용자 인증 정보 > OAuth 클라이언트 ID > 동의 화면 구성
  - 승인된 리디렉션 URI
-  > http://localhost:8080/login/oauth2/code/google
-  > 서비스에서 파라미터로 인증 정보를 주었을 때 인증이 성공하면 구글에서 리다이렉트할 URL
-  > 스프링 부트2 버전의 시큐리티에서는 기본적으로 {도메인}/login/oauth2/code/{소셜서비스코드}로 리다이렉트 URL을 지원하고 있음
-  > 시큐리티에서 이미 구현해 놓았으므로 사용자가 별도로 리다이렉트 URL을 지원하는 Controller를 만들 필요가 없음
-  > 현재는 개발 단계이므로 http://localhost:8080/login/oauth2/code/google로만 등록함
-  > AWS 서버에 배포하게 되면 localhost 외에 추가로 주소를 추가해야하며, 이건 이후에 진행할 것
+      > http://localhost:8080/login/oauth2/code/google
+      > 서비스에서 파라미터로 인증 정보를 주었을 때 인증이 성공하면 구글에서 리다이렉트할 URL
+      > 스프링 부트2 버전의 시큐리티에서는 기본적으로 {도메인}/login/oauth2/code/{소셜서비스코드}로 리다이렉트 URL을 지원하고 있음
+      > 시큐리티에서 이미 구현해 놓았으므로 사용자가 별도로 리다이렉트 URL을 지원하는 Controller를 만들 필요가 없음
+      > 현재는 개발 단계이므로 http://localhost:8080/login/oauth2/code/google로만 등록함
+      > AWS 서버에 배포하게 되면 localhost 외에 추가로 주소를 추가해야하며, 이건 이후에 진행할 것
+  - 클라이언트 ID : 46898305474-cht405jkb2hrkju70uqsfcff09m2co4e.apps.googleusercontent.com
+  - 클라이언트 비번 : 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
 
+ㅁresources 폴더에 application-oauth.properties 생성
+ - id, 비번 등록
+ - 대부분은 scope를 별도로 등록하지 않는데 이는 기본값이 openid, profile,email이기 때문임
+ - 강제로 profile,email를 등록한 이유는 openid라는 scope가 있으면 Open id Provider로 인식하기 때문임
+ - 이렇게 되면 OpenId Provider인 서비스(구글)와 그렇지 않은 서비스(네이버/카카오 등)로 나눠서 각각 OAuth2Service를 만들어야 함
+ - 하나의 OAuth2Service로 사용하기 위해 일부러 openid scope를 빼고 등록함
+ - 스프링 부트에서는 properties의 이름을 application-xxx.properties로 만들면 xxx라는 이름의 profile이 생성되어 이를 통해 관리가능
+  > profile=xxx라는 식으로 호출하면 해당 properties의 설정들을 가져올 수 있음
+  > 호출하는 방식에는 여러가지가 있지만 이 책에서는 스프링 부트의 기본 설정 파일인 application.properties에서 application-oauth.properties
+  를 포함하도록 구성함
+
+ cf) 이미 add된 파일 add에서 뺴려면
+  우클릭 > git 메뉴 > rollback
+
+ㅁ .gitignore에 application-oauth.properties 등록
