@@ -30,8 +30,6 @@
       > 시큐리티에서 이미 구현해 놓았으므로 사용자가 별도로 리다이렉트 URL을 지원하는 Controller를 만들 필요가 없음
       > 현재는 개발 단계이므로 http://localhost:8080/login/oauth2/code/google로만 등록함
       > AWS 서버에 배포하게 되면 localhost 외에 추가로 주소를 추가해야하며, 이건 이후에 진행할 것
-  - 클라이언트 ID : 46898305474-cht405jkb2hrkju70uqsfcff09m2co4e.apps.googleusercontent.com
-  - 클라이언트 비번 : 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
 
 ㅁresources 폴더에 application-oauth.properties 생성
  - id, 비번 등록
