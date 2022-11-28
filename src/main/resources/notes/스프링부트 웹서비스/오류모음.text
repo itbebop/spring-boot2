@@ -83,3 +83,6 @@ Expecting actual not to be null
  - IndexControllerTest의 메인페이지_로딩()을 실행할 때 아래 부분에서 발생함
         String body = this.restTemplate.getForObject("/", String.class);
  - 원인 :
+
+ㅇ Class 'UserRepository' must either be declared abstract or implement abstract method 'findAll()' in 'JpaRepository'
+ - 원인 : interface로 할 UserRepository를 class로 할 경우 발생
