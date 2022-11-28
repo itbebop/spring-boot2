@@ -1,4 +1,5 @@
 .gradle
 .idea
 .gradle/
+checksums
 application-oauth.properties
