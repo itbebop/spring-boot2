@@ -86,3 +86,12 @@ Expecting actual not to be null
 
 ㅇ Class 'UserRepository' must either be declared abstract or implement abstract method 'findAll()' in 'JpaRepository'
  - 원인 : interface로 할 UserRepository를 class로 할 경우 발생
+
+ㅇ Application 실행시에 Parameter 0 of constructor in com.itbebop.documentation.springboot.config.auth.SecurityConfig required a bean of type 'org.springframework.security.oauth2.client.userinfo.CustomUserTypesOAuth2UserService' that could not be found.
+ - 원인 : 구성했던 프로젝트의 service 클래스에서 dao를 제대로 찾지 못해서 발생하는 문제
+ - 해결 : Application.java 내의
+ @SpringBootApplication어노테이션 뒤에
+ (scanBasePackages={"org.springframework.security.oauth2.client.userinfo"}) 를 붙임
+
+ㅇ google 로그인 시에
+OAuth2AuthorizationRequestRedirectFilter : Authorization Request failed: java.lang.IllegalArgumentException: Invalid Client Registration with Id: naver
