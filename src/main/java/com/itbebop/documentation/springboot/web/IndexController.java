@@ -27,8 +27,12 @@ public class IndexController {
          - 앞서 작성된 CustomOAuth2UserService에서 로그인 성공 시 세션에 SessionUser를 저장하도록 구성함
          - 즉, 로그인 성공 시 httpSession.getAttribute("user")에서 값을 가져올 수 있음
          */
+        System.out.println("======user : "+user.toString());
+
         if (user != null) {
             model.addAttribute("userName", user.getName());
+        }else{
+            model.addAttribute("userName", "이름없음");
         }
         /*
         if (user != null) {

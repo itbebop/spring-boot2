@@ -15,12 +15,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http
-                .csrf().disable().headers().frameOptions().disable() // h2-console 화면을 사용하기 위해 disable함
-                .and().authorizeRequests() // URL별 권한관리를 설정하는 옵션의 시작점임. 이게 선언되어야 antMatchers 옵션 사용가능
-                .antMatchers("/api/v1/**").hasRole(Role.USER.name())
-                .anyRequest().authenticated()
-                .and().logout().logoutSuccessUrl("/")
-                .and().oauth2Login().userInfoEndpoint().userService(customUserTypesOAuth2UserService);
+                .csrf().disable()
+                .headers().frameOptions().disable() // h2-console 화면을 사용하기 위해 disable함
+                .and()
+                    .authorizeRequests() // URL별 권한관리를 설정하는 옵션의 시작점임. 이게 선언되어야 antMatchers 옵션 사용가능
+                    .antMatchers("/","/css/**","/images/**","/js/**","/h2-console/**").permitAll()
+                    .antMatchers("/api/v1/**").hasRole(Role.USER.name())
+                    .anyRequest().authenticated()
+                .and()
+                    .logout()
+                        .logoutSuccessUrl("/")
+                .and()
+                    .oauth2Login()
+                        .userInfoEndpoint()
+                            .userService(customUserTypesOAuth2UserService);
                 /*
                  ㅇ antMatchers
                   - 권한 관리 대상을 지정하는 옵션
