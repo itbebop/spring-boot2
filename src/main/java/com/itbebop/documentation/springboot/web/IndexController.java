@@ -30,6 +30,7 @@ public class IndexController {
         System.out.println("======user : "+user.toString());
 
         if (user != null) {
+            System.out.println("======test");
             model.addAttribute("userName", user.getName());
         }else{
             model.addAttribute("userName", "이름없음");

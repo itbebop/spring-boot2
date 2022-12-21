@@ -15,8 +15,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http
-                .csrf().disable()
-                .headers().frameOptions().disable() // h2-console 화면을 사용하기 위해 disable함
+                    .csrf().disable()
+                    .headers().frameOptions().disable() // h2-console 화면을 사용하기 위해 disable함
                 .and()
                     .authorizeRequests() // URL별 권한관리를 설정하는 옵션의 시작점임. 이게 선언되어야 antMatchers 옵션 사용가능
                     .antMatchers("/","/css/**","/images/**","/js/**","/h2-console/**").permitAll()

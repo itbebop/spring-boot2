@@ -5,34 +5,10 @@
     <!-- 로그인 기능 영역 -->
     <div class="row">
         <div class="col-md-6">
-            <a href="/posts/save" role="button" class="btn btn-primary">글 등록</a>
-            {{#userName}}
-                <!--
-                 - 머스테치는 다른 언어와 같은 if문을 제공하지 않음
-                 - true/false 여부만 판단함
-                 - 그래서 머스테치에서는 항상 최종값을 넘겨줘야 함
-                 - userName이 있다면 userName을 노출시키도록 구성함
-                -->
-                Logged in as: <span id="user">{{userName}}</span>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#savePostsModal">글 등록</button>
+                Logged in as: <span id = "user"></span>
                 <a href="/logout" class="btn btn-info active" role="button">Logout</a>
-                <!--
-                 ㅇ href="/logout"
-                 - 스프링 시큐리티에서 기본적으로 제공하는 로그아웃 URL로서 별도로 저 URL에 해당하는 컨트롤러 만들 필요없음
-                 - SecurityConfig 클래스에서 URL을 변경할 순 있지만 그대로 사용함
-                -->
-            {{/userName}}
-            {{^userName}}
-                <!--
-                 - 머스테치에서 해당 값이 존재하지 않는 경우에는 ^ 를 사용함
-                 - 여기서는 userName이 없다면 로그인 버튼을 노출시키도록 한 것
-                -->
                 <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
-                <a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>
-                <!--
-                 - 스프링 시큐리티에서 기본적으로 제공하는 로그인 URL
-                 - 로그아웃 URL과 마찬가지로 개발자가 별도의 컨트롤러를 생성할 필요가 없음
-                -->
-            {{/userName}}
         </div>
     </div>
     <br>

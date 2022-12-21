@@ -57,7 +57,6 @@ dependencies {
     implementation 'org.junit.jupiter:junit-jupiter:5.8.2'
     implementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
     annotationProcessor('org.projectlombok:lombok')
     testImplementation('org.projectlombok:lombok')
     testAnnotationProcessor('org.projectlombok:lombok')
@@ -70,7 +69,8 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-mustache')
     
     //spring security
-    implementation('org.springframework.boot:spring-boot-starter-oauth2-client')
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
     /*
      - 소결 로그인 등 클라이언트 입장에서 소셜 기능 구현 시 필요한 의존성임
      - spring-security-oauth2-client와 spring-security-oauth2-jose를 기본으로 관리해줌
